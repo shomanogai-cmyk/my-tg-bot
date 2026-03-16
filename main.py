@@ -4,10 +4,16 @@ import time
 from flask import Flask
 from threading import Thread
 
-# Используем переменные окружения, которые мы зададим в настройках Render
-TOKEN = os.environ.get("8042945461:AAHf_AtQFr-NHfNh_aKfkvcPKIRF-RstK6w")
-MY_ID = int(os.environ.get("7253524196"))
-URL = f"https://api.telegram.org/bot{8042945461:AAHf_AtQFr-NHfNh_aKfkvcPKIRF-RstK6w}/"
+# Код берет настройки из панели Render, а не из текста файла
+TOKEN = os.environ.get("TOKEN")
+MY_ID = os.environ.get("MY_ID")
+
+if not TOKEN or not MY_ID:
+    print("Ошибка: Переменные TOKEN или MY_ID не найдены!")
+    exit(1)
+
+URL = f"https://api.telegram.org/bot{TOKEN}/"
+MY_ID = int(MY_ID)
 
 app = Flask(__name__)
 @app.route('/')
